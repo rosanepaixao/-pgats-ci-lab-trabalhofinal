@@ -36,7 +36,7 @@ jobs:
       
       #instalacao das dependencias
       - name: Executando Testes E2E
-        run: yarn playwright test
+        run: yarn playwright trabalho_final
 
       # instalacao do Playwright
       - name: Instalando Playwright
