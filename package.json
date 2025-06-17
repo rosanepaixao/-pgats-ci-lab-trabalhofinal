@@ -1,0 +1,10 @@
+{
+  "name": "pgats-ci-lab-trabalhofinal",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "devDependencies": {
+    "@playwright/test": "^1.53.0",
+    "playwright": "^1.53.0"
+  }
+}
