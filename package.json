@@ -8,6 +8,7 @@
     "playwright": "^1.53.0"
   },
   "scripts": {
-    "trabalho_final": "playwright test testes/trabalho_final.spec.ts"
+    "trabalho_final": "playwright test testes/trabalho_final.spec.ts",
+    "e2e": "playwright test"
   }
 }
