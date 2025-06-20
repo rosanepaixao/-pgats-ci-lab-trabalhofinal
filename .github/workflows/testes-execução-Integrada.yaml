@@ -1,0 +1,49 @@
+# CI de Nível 01 - Disparo dos testes dentro do pipe de dev
+
+#nome do nosso 'pipeline'
+name: "Execução Manual testes 01"
+
+# regras de disparo (gatilho/triggers)
+# gatinho de exec manual = Worflow_dispatch
+
+on:
+  workflow_dispatch:
+
+#trabalhos/tarefas dentro do pipeline = jobs
+jobs:
+  inspecao:
+    #maquina que o job vai executar
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Instalando Yarn
+        run: npm install -g yarn
+
+      - name: Instalando dependências
+        run: yarn lint
+
+  unidade:
+    runs-on: ubuntu-latest
+    needs: [inspecao]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Instalando Yarn
+        run: npm install -g yarn
+
+      - name: Instalando dependências
+        run: yarn lint~
+
+      - name: Executando testes de unidade
+        run: yarn test
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: [unidade]
+
+    steps:
+      - name: Simulação do Deploy
+        run: echo "simulando o deploy com sucesso"
