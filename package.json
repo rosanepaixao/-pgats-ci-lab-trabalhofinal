@@ -12,6 +12,8 @@
   "scripts": {
     "lint": "npm run lint:format",
     "lint:format": "prettier . --write",
-    "test": "playwright test"
+    "test": "playwright test",
+    "build": "babel src -d lib",
+    "prebuild": "jest"
   }
 }
