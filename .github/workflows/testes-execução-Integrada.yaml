@@ -35,7 +35,7 @@ jobs:
         run: npm install -g yarn
 
       - name: Instalando dependências
-        run: yarn lint~
+        run: yarn lint
 
       - name: Executando testes de unidade
         run: yarn test
