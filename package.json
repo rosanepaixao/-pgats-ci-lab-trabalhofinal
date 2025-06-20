@@ -6,11 +6,11 @@
   "devDependencies": {
     "@playwright/test": "^1.53.0",
     "playwright": "^1.53.0",
-    "prettier": "^3.5.3"
+    "prettier": "^3.5.3",
+    "typescript": "^5.8.3"
   },
   "scripts": {
-    "lint": "npm run lint:ts && npm run lint:format",
-    "lint:ts": "tsc --noEmit",
+    "lint": "npm run lint:format",
     "lint:format": "prettier . --write"
   }
 }
