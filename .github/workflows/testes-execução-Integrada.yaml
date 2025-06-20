@@ -1,49 +1,71 @@
 # CI de Nível 01 - Disparo dos testes dentro do pipe de dev
 
-#nome do nosso 'pipeline'
-name: "Execução Manual testes 01"
-
-# regras de disparo (gatilho/triggers)
-# gatinho de exec manual = Worflow_dispatch
+# nome do nosso 'pipeline'
+name: 'Execução Integrada'
 
 on:
   workflow_dispatch:
 
-#trabalhos/tarefas dentro do pipeline = jobs
 jobs:
   inspecao:
-    #maquina que o job vai executar
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
 
     steps:
+      # clone do projeto
       - uses: actions/checkout@v4
 
-      - name: Instalando Yarn
+      # instalação do node
+      - uses: actions/setup-node@v4
+        with:
+          node-version: latest
+
+      #instalação do yarn
+      - name: Instalando yarn
         run: npm install -g yarn
 
+      # instalação das dependências
       - name: Instalando dependências
+        run: yarn
+
+      - name: Checando padronização do código
         run: yarn lint
 
   unidade:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     needs: [inspecao]
 
     steps:
+      # clone do projeto
       - uses: actions/checkout@v4
 
-      - name: Instalando Yarn
+      # instalação do node
+      - uses: actions/setup-node@v4
+        with:
+          node-version: latest
+
+      #instalação do yarn
+      - name: Instalando yarn
         run: npm install -g yarn
 
+      # instalação das dependências
       - name: Instalando dependências
-        run: yarn lint
+        run: yarn
 
       - name: Executando testes de unidade
         run: yarn test
 
+      - uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}
+        with:
+          name: relatorio
+          path: ./playwright-report
+
   deploy:
-    runs-on: ubuntu-latest
-    needs: [unidade]
+    runs-on: ubuntu-22.04
+    needs: [ unidade]
 
     steps:
+      - uses: actions/checkout@v4
+
       - name: Simulação do Deploy
         run: echo "simulando o deploy com sucesso"
