@@ -10,7 +10,7 @@
   },
   "scripts": {
     "lint": "npm run lint:ts && npm run lint:format",
-    "lint:ts": "tsc -b jsconfig.json",
+    "lint:ts": "tsc --noEmit",
     "lint:format": "prettier . --write"
   }
 }
